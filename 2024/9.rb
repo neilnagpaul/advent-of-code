@@ -1,5 +1,5 @@
 space, files, disk = [], [], []
-gets.chars.map(&:to_i).each_with_index { |c, i| 
+gets.chars.map(&:to_i).each_with_index { |c, i|
   (i.even? ? files : space) << [disk.size, c] if c.nonzero?
   disk += [i.even? ? i/2 : -1] * c
 }
@@ -9,7 +9,7 @@ def check(d) = p d.each_with_index.sum { _1.negative? ? 0 : _1 * _2  }
 a, b = 0, disk.size - 1
 test = ->(*_) { raise if a == b }
 loop {
-  test[a += 1] while disk[a] != -1 
+  test[a += 1] while disk[a] != -1
   test[b -= 1] while disk[b] == -1
   disk[a], disk[b] = disk[b], -1
 } rescue check disk
