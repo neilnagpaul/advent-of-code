@@ -19,6 +19,7 @@ go = ->(guard, obstacles) {
     redo
   }
 }
+
 path = go[guard, obstacles]
 p path.size
 p path.count { |i| !go[guard, obstacles.dup.add([*i])] }
