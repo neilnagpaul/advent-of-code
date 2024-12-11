@@ -1,5 +1,5 @@
 require 'matrix'
-grid = Matrix[*ARGF.map(&:strip).map(&:chars)]
+grid = Matrix[*ARGF.map { _1.strip.chars }]
 guard = Vector[*grid.index(?^)]
 obstacles = grid.each_with_index.filter_map { |c, *i| i if c == ?# }.to_set
 
