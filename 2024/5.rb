@@ -1,5 +1,5 @@
-rules, updates = ARGF.read.split(/\n\n/).map {
-  _1.split.map { |line| line.split(/\W/).map &:to_i  }
+rules, updates = ARGF.read.split("\n\n").map {
+  _1.split.map { |line| line.split(/\W/).map(&:to_i) }
 }
 incorrect = ->(u) {
   rules.any? { |(a, b)|
@@ -7,7 +7,7 @@ incorrect = ->(u) {
     u.index(a) > u.index(b)
   }
 }
-midpoints = ->(u){ u[u.size / 2] }
+midpoints = ->(u) { u[u.size / 2] }
 
 p updates.reject(&incorrect).sum(&midpoints)
 p updates.select(&incorrect).map { |u|

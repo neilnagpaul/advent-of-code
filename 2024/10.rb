@@ -1,7 +1,7 @@
-require 'matrix'
-map = Matrix[*ARGF.map { _1.strip.chars.map &:to_i }]
+require "matrix"
+map = Matrix[*ARGF.map { _1.strip.chars.map(&:to_i) }]
 deltas = [[0, 1], [1, 0], [0, -1], [-1, 0]].map { Vector[*_1] }
-search=->(vec, trail=[]) {
+search = ->(vec, trail = []) {
   return [trail] if map[*vec] == 9
   deltas.map(&vec.method(:+)).filter_map { |succ|
     next unless succ.none?(&:negative?) && map[*succ] == map[*vec].succ
