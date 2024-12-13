@@ -2,7 +2,7 @@ def blink =
   @stones = @stones.each_with_object(Hash.new(0)) { |(stone, count), stones|
     if stone == 0
       stones[1] += count
-    elsif (digits = Math.log10(stone).floor + 1).even?
+    elsif (digits = stone.digits.size).even?
       a, b = stone.divmod(10**(digits / 2))
       stones[a] += count
       stones[b] += count
