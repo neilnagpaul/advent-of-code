@@ -1,4 +1,4 @@
-rules, updates = ARGF.read.split("\n\n").map {
+rules, updates = ARGF.each("\n\n").map {
   _1.split.map { |line| line.split(/\W/).map(&:to_i) }
 }
 incorrect = ->(u) {
