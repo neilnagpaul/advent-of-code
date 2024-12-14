@@ -13,8 +13,16 @@ def simulate(t = 100) = @robots.map { |pos, v|
 
 quadrant = ->(r) { simd r, :<=>, [0, 0] }
 p simulate.map(&quadrant).reject { _1.any?(&:zero?) }.tally.values.inject(:*)
-p (0..).find { |t|
-  points = simulate(t).to_set
-  symmetry = points.count { |(i, j)| points === [i, -j] }
-  symmetry > @robots.length * 0.4
+
+variance = ->(pairs) {
+  n = pairs.size
+  mean = pairs.transpose.map { |coords| coords.sum.to_f / n }
+  pairs.transpose.zip(mean).map { |coords, m|
+    coords.map { |coord| (coord - m)**2 }.sum / n
+  }.sum / 2
+}
+p (1..).inject(0) { |acc, t|
+  v = variance[simulate(t)]
+  break t if v < 0.5 * ((acc += v) / t)
+  acc
 }
