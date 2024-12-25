@@ -9,12 +9,12 @@ go = ->(guard, obstacles) {
   seen = Hash.new { |h, k| h[k] = Set[] }
   directions.cycle { |direction|
     if obstacles.include?([*(guard + direction)])
-      break false if seen[guard].include?(direction)
+      break if seen[guard].include?(direction)
       seen[guard] << direction
       next
     end
     guard += direction
-    break positions unless !guard.any?(&:negative?) && grid[*guard]
+    break positions unless guard.none?(&:negative?) && grid[*guard]
     positions << guard
     redo
   }
