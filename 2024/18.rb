@@ -7,7 +7,7 @@ def path(i)
   queue = [[0, Vector[0, 0]]]
   queue.each { |dist, pos|
     return dist if pos == Vector[70, 70]
-    @deltas.map { pos + it }.select { [*it] in 0..70, 0..70 }.each {
+    @deltas.map { pos + it }.select { it.all?(0..70) }.each {
       next if seen === it
       queue << [dist + 1, it]
       seen << it

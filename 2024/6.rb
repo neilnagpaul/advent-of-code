@@ -14,7 +14,7 @@ go = ->(guard, obstacles) {
       next
     end
     guard += direction
-    break positions unless guard.none?(&:negative?) && grid[*guard]
+    break positions unless guard.all?(0..) && grid[*guard]
     positions << guard
     redo
   }
@@ -22,4 +22,4 @@ go = ->(guard, obstacles) {
 
 path = go[guard, obstacles]
 p path.size
-p path.count { |i| !go[guard, obstacles.dup.add([*i])] }
+p path.count { !go[guard, obstacles.dup.add([*it])] }
