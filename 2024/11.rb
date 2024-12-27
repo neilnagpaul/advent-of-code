@@ -11,5 +11,5 @@ def blink(tally) = tally.each_with_object(Hash.new(0)) { |(stone, n), tally|
 }
 
 stones = gets.split.map(&:to_i).tally
-p 25.times.inject(stones) { blink _1 }.values.sum
-p 75.times.inject(stones) { blink _1 }.values.sum
+p 25.times.inject(stones) { blink it }.values.sum
+p 75.times.inject(stones) { blink it }.values.sum

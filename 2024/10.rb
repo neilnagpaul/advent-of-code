@@ -1,6 +1,6 @@
 require "matrix"
-map = Matrix[*ARGF.map { _1.strip.chars.map(&:to_i) }]
-deltas = [[0, 1], [1, 0], [0, -1], [-1, 0]].map { Vector[*_1] }
+map = Matrix[*ARGF.map { it.strip.chars.map(&:to_i) }]
+deltas = [[0, 1], [1, 0], [0, -1], [-1, 0]].map { Vector[*it] }
 search = ->(vec, trail = []) {
   return [trail] if map[*vec] == 9
   deltas.map(&vec.method(:+)).filter_map { |succ|
@@ -11,5 +11,5 @@ search = ->(vec, trail = []) {
 
 heads = map.each_with_index.filter_map { |i, *vec| Vector[*vec] if i == 0 }
 paths = heads.map(&search)
-p paths.sum { |trail| trail.to_set { _1[-1] }.size }
+p paths.sum { |trail| trail.to_set { it[-1] }.size }
 p paths.sum { |trail| trail.size }

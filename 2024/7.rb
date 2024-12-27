@@ -1,4 +1,4 @@
-lines = ARGF.map { _1.scan(/\d+/).map(&:to_i) }
+lines = ARGF.map { it.scan(/\d+/).map(&:to_i) }
 
 class Integer
   define_method(:"||") { |other| (to_s + other.to_s).to_i }

@@ -1,5 +1,5 @@
 require "matrix"
-@grid = Matrix[*ARGF.map { _1.strip.chars }]
+@grid = Matrix[*ARGF.map { it.strip.chars }]
 directions = [-1, 0, 1]
 deltas = *directions.repeated_permutation(2)
 dig = ->(i, j) { @grid[i, j] if [i, j].none?(&:negative?) }

@@ -1,5 +1,5 @@
 rules, updates = ARGF.each("\n\n").map {
-  _1.split.map { |line| line.split(/\W/).map(&:to_i) }
+  it.split.map { |line| line.split(/\W/).map(&:to_i) }
 }
 incorrect = ->(u) {
   rules.any? { |(a, b)|
