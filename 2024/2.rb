@@ -5,5 +5,5 @@ safe = ->(report) {
 }
 p reports.count(&safe)
 p reports.map { |report|
-  (0...report.size).map { |i| report[0...i] + report[i + 1..] }
+  report.each_index.map { |i| report[0...i] + report[i + 1..] }
 }.count { it.any?(&safe) }
