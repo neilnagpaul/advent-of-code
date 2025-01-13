@@ -1,15 +1,5 @@
-rules, updates = ARGF.each("\n\n").map {
-  it.split.map { |line| line.split(/\W/).map(&:to_i) }
-}
-incorrect = ->(u) {
-  rules.any? { |(a, b)|
-    next unless u.include?(a) && u.include?(b)
-    u.index(a) > u.index(b)
-  }
-}
-midpoints = ->(u) { u[u.size / 2] }
-
-p updates.reject(&incorrect).sum(&midpoints)
-p updates.select(&incorrect).map { |u|
-  u.sort_by { |x| u.count { |e| rules.include?([e, x]) } }
-}.sum(&midpoints)
+rules, pages = *ARGF.each("\n\n").map(&:split)
+pages.map! { it.split(",") }
+cmp = ->(a, b) { rules.include?("#{a}|#{b}") ? -1 : 1 }
+puts pages.partition { it.dup == it.sort!(&cmp) }
+  .map { |seq| seq.sum { it[it.size / 2].to_i } }

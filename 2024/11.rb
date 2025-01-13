@@ -1,12 +1,12 @@
-def blink(tally) = tally.each_with_object(Hash.new(0)) { |(stone, n), tally|
+def blink(tally) = tally.each_with_object(Hash.new(0)) { |(stone, n), succ|
   if stone == 0
-    tally[1] += n
+    succ[1] += n
   elsif (digits = stone.digits.count).even?
     a, b = stone.divmod(10**(digits / 2))
-    tally[a] += n
-    tally[b] += n
+    succ[a] += n
+    succ[b] += n
   else
-    tally[stone * 2024] += n
+    succ[stone * 2024] += n
   end
 }
 

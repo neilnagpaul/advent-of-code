@@ -10,5 +10,5 @@ def calibrate(((result, *vals), ops))
   }.index(result) ? result : 0
 end
 
-p lines.zip([%i[+ *]].cycle).sum(&method(:calibrate))
-p lines.zip([%i[+ * ||]].cycle).sum(&method(:calibrate))
+p lines.zip([%i[+ *]].cycle).sum { calibrate it }
+p lines.zip([%i[+ * ||]].cycle).sum { calibrate it }

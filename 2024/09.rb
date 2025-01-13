@@ -4,7 +4,7 @@ gets.chars.map(&:to_i).each_with_index { |c, i|
   disk += [i.even? ? i / 2 : -1] * c
 }
 @disk = disk.dup
-def check(d) = p d.each_with_index.sum { _1.negative? ? 0 : _1 * _2 }
+def check(d) = p d.each_with_index.sum { [0, _1 * _2].max }
 
 a, b = 0, disk.size - 1
 test = ->(*_) { raise if a == b }

@@ -1,6 +1,6 @@
 reports = ARGF.map { it.split.map(&:to_i) }
 safe = ->(report) {
-  delta = report.each_cons(2).map { _2 - _1 }
+  delta = report.each_cons(2).map { it.inject :- }
   [delta.grep_v(1..3), delta.grep_v(-3..-1)].any?(&:empty?)
 }
 p reports.count(&safe)
