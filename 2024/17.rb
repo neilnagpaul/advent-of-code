@@ -1,10 +1,10 @@
-def run(program, regs)
+def run(regs)
   a, b, c = 4, 5, 6
   combo = [0, 1, 2, 3] + regs
   out = []
   ip = 0
-  while ip < program.length
-    opcode, operand = program[ip, 2]
+  while ip < @program.length
+    opcode, operand = @program[ip, 2]
     case opcode
     when 0 then combo[a] >>= combo[operand]
     when 1 then combo[b] ^= operand
@@ -20,17 +20,13 @@ def run(program, regs)
   out
 end
 
-def expect(program, out, prev = 0)
-  return prev if out.empty?
-  (1 << 10).times { |a|
-    next unless (a >> 3 == prev & 127) &&
-      (run(program, [a, 0, 0])[0] == out[-1])
-    ret = expect(program, out[...-1], (prev << 3) | (a % 8))
-    return ret if ret
-  } and nil
-end
-
 nums = ARGF.read.scan(/\d+/).map(&:to_i)
-regs, program = nums[0..2], nums[3..]
-puts run(program, regs).to_a * ","
-puts expect(program, program)
+regs, @program = nums[0..2], nums[3..]
+puts run(regs).to_a * ","
+
+a = 0
+@program.each_index.reverse_each { |i|
+  a <<= 3
+  a += 1 until run([a, *regs[1..]]) == @program[i..]
+}
+p a
